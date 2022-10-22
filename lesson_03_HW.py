@@ -30,7 +30,7 @@ print(f'sum of odd positions is: {sum_odd_position}')
 # Пример:
 # [2, 3, 4, 5, 6] => [12, 15, 16];
 # [2, 3, 5, 6] => [12, 15]
-
+# Вариант 1
 from random import *
 n = int(input('input numbers position in list: '))
 some_list = []
@@ -47,10 +47,23 @@ if len(some_list) % 2 == 1:
     new_list.append(some_list[el] ** 2)
 print(new_list)
 
+# Вариант 2
+count = int(input('Введите кол-во элементов: '))
+some_list = []
+for _ in range(count):
+    number = int(input())
+    some_list.append(number)
+new_list = []
+for idx in range((count - 1) // 2 + 1):
+    number1 = some_list[idx]
+    number2 = some_list[count - idx - 1]
+    new_list.append(number1 * number2)
+print(new_list)
+
 # 3. Задайте список из вещественных чисел. Напишите программу, которая найдёт разницу между максимальным 
 # и минимальным значением дробной части элементов.
 # Пример: [1.1, 1.2, 3.1, 5, 10.01] => 0.19
-
+# Вариант 1
 from random import *
 n = int(input('input numbers position in list: '))
 some_list = []
@@ -66,8 +79,24 @@ for i in some_list:
     if maxi < round(i - round(i), 2):
         maxi = round(i - round(i), 2)
 result = maxi - mini
-
 print(f'result max - min is: {result}')
+
+# Вариант 2
+count = int(input('input elements: '))
+some_list = []
+for _ in range(count):
+    number = float(input())
+    some_list.append(number)
+minn = 1
+maxx = 0
+for el in some_list:
+    if '.' in str(el):
+        dr = str(el).split('.')[1]
+        if float('0.' + dr) > maxx:
+            maxx = float('0.' + dr)
+        elif float('0.' + dr) < minn:
+            minn = float('0.' + dr)
+print(maxx - minn)
 
 # 4. Напишите программу, которая будет преобразовывать десятичное число в двоичное
 
@@ -90,28 +119,19 @@ n = int(input('input digital: '))
 number = change_digit(n)
 print(f'digit {n} convert to {number}')
 
+# Вариант через bin
+a = int(input())
+print(bin(a)[2:]) # срез 1х 2х символов
+
 # 5. Задайте число. Составьте список чисел Фибоначчи, в том числе для отрицательных индексов.
 # Пример:
 # для k = 8 список будет выглядеть так: [-21 ,13, -8, 5, −3, 2, −1, 1, 0, 1, 1, 2, 3, 5, 8, 13, 21] 
-# ДОДЕЛАТЬ
-fib1 = 0
-fib2 = 1
- 
-n = int(input())
 
-for i in range(2, n + 1):
-    fib1, fib2 = fib2, fib1 + fib2
-    print(fib2, end=' ')
-
-print()
-
-fib11 = 1
-fib22 = 0
- 
-n1 = int(input())
- 
-for i in range(-1, n1 - 1):
-    fib11, fib22 = fib22, fib11 - fib22
-    print(fib22, end=' ')
- 
-print(fib2, fib22, end=' ')
+k = int(input())
+some_list = [0] * (k * 2 + 1)
+some_list[k + 1] = 1
+for idx in range(k + 2, k * 2 + 1):
+    some_list[idx] = some_list[idx - 1] + some_list[idx - 2]
+for idx in range(k, -1, -1):
+    some_list[idx] = some_list[idx + 2] - some_list[idx + 1]
+print(some_list)
