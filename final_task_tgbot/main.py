@@ -3,11 +3,11 @@ import requests
 import pytz
 import datetime
 
-bot = telebot.TeleBot("5842701010:AAHH8i9ZgJ9lmIBKP1MinstnnpMKu2Vk5EY")
+bot = telebot.TeleBot("TOKEN")
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
-    # Create a keyboard with three buttons
+    # Create a keyboard with 3 buttons
     markup = telebot.types.ReplyKeyboardMarkup(row_width=3)
     markup.add(telebot.types.KeyboardButton('Time in Moscow'), telebot.types.KeyboardButton('Time in Buenos Aires'), telebot.types.KeyboardButton('USD Exchange Rate (CBR)'))
     bot.send_message(message.chat.id, "Welcome! Please choose an option:", reply_markup=markup)
@@ -28,7 +28,7 @@ def time_in_buenos_aires(message):
 
 @bot.message_handler(func=lambda message: message.text == 'USD Exchange Rate (CBR)')
 def usd_exchange_rate(message):
-    # Scrape the current exchange rate of the US Dollar from the Central Bank of Russia's website
+    # Получаем курсы валют с сайта ЦБ РФ
     url = 'https://www.cbr-xml-daily.ru/daily_json.js'
     response = requests.get(url)
     data = response.json()
